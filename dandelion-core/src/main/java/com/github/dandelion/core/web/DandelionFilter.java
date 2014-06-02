@@ -179,7 +179,12 @@ public class DandelionFilter implements Filter {
 		if(response.isCommitted()) {
 			applyFilter = false;
 		}
-		
+
+                // Disable filter when serving font files
+                if(request.getRequestURI().endsWith("woff")||request.getRequestURI().endsWith("ttf")||request.getRequestURI().endsWith("otf")||request.getRequestURI().endsWith("eot")){
+                        applyFilter = false;
+                }
+
 		// Then, check whether the filter has been explicitely disabled
 		// (possibly by other components) either from a request attribute...
 		if (request.getAttribute(WebConstants.DANDELION_ASSET_FILTER_STATE) != null) {
